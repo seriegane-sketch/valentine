@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flower Delivery + Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        }
+
+        .card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #d63384;
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .content-flex {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .bouquet-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .message-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 22px;
+        }
+
+        .dashed-box {
+            border: 2px dashed #d63384;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fff9fb;
+        }
+
+        .message-text {
+            color: #d63384;
+            font-weight: 500;
+            font-style: italic;
+            margin: 0 0 10px 0;
+        }
+
+        .from-tag {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .options-list li {
+                padding: 8px 0;
+                border-bottom: 1px solid #eee;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+                .options-list li:hover {
+                    color: #d63384;
+                    padding-left: 5px;
+                }
+
+            .options-list a {
+                text-decoration: none;
+                color: inherit;
+                display: block;
+            }
+
+        .btn-receive {
+            display: block;
+            width: 200px;
+            margin: 20px auto 10px;
+            padding: 12px;
+            background-color: #d63384;
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+            transition: transform 0.2s;
+        }
+
+            .btn-receive:hover {
+                transform: scale(1.05);
+                background-color: #bc2b73;
+            }
+
+        .footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        /* Gallery popup */
+        #galleryPopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.9);
+            padding: 30px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+            #galleryPopup .close-btn {
+                color: white;
+                font-size: 28px;
+                font-weight: bold;
+                position: fixed;
+                top: 20px;
+                right: 30px;
+                cursor: pointer;
+            }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+            .gallery-grid img {
+                width: 100%;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: transform 0.3s;
+            }
+
+                .gallery-grid img:hover {
+                    transform: scale(1.05);
+                }
+
+        /* Zoom modal */
+        #zoomModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+            #zoomModal img {
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 10px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Flower Bouquet Delivery!</h1>
+        <p class="subtitle">You have a special delivery.</p>
+
+        <div class="content-flex">
+            <img src="puffy-purple-.jpg" alt="Flowers" class="bouquet-img">
+
+            <div class="message-section">
+                <h2>HELLO</h2>
+
+                <div class="dashed-box">
+                    <p class="message-text">
+                        "Hello there, the most beautiful girl. Happy Valentine's Day!"
+                    </p>
+                    <span class="from-tag">From: ERWIN SERIEGAN</span>
+                </div>
+
+                <div class="dashed-box">
+                    <ul class="options-list">
+                        <li onclick="showMessage()">Tap here for a simple message</li>
+                        <li><a href="https://www.youtube.com/watch?v=7OusOeIE4j0&list=RD7OusOeIE4j0&start_radio=1" target="_blank">Tap here for a link to a song</a></li>
+                        <li onclick="openGallery()">Tap here for pictures</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" class="btn-receive" onclick="receiveGift()">Tap to Receive</a>
+        <p class="footer-note">Document "Gift" received! Happy Valentine's Day!</p>
+    </div>
+
+    <!-- Gallery Popup -->
+    <div id="galleryPopup">
+        <span class="close-btn" onclick="closeGallery()">&times;</span>
+        <h1 style="color:white; text-align:center; margin-bottom:20px;">Our Special Moments 💖</h1>
+        <div class="gallery-grid">
+            <img src="1.jpg" alt="Picture 1">
+            <img src="2.jpg" alt="Picture 2">
+            <img src="3.jpg" alt="Picture 3">
+            <img src="4.jpg" alt="Picture 4">
+            <img src="5.jpg" alt="Picture 5">
+        </div>
+    </div>
+
+    <!-- Zoom Modal -->
+    <div id="zoomModal">
+        <img src="" alt="Zoomed Image">
+    </div>
+
+    <script>
+        function showMessage() {
+    alert(`Happy Valentine’s Day, my love 💖
+
+I love you so much, kahit minsan hindi ko naipapakita nang sobra kasi hindi naman talaga ako ganun ka-expressive. Pero sana alam mo na mahal kita—kahit sa mga simpleng bagay na ginagawa ko para sa’yo, sa bawat effort at sa bawat maliit na kilos, ipinapakita ko ang pagmamahal ko sa’yo. Talagang sinusubukan kong maging mas vocal at expressive para hindi mo na kailangang mag-overthink.
+
+Gusto ko sana malaman mo na ikaw lang ang pipiliin ko palagi, at wala nang iba. Hindi ako kagaya ng iba, kaya sana huwag mo nang itanong sa sarili mo ang worth mo—dahil sa puso ko, ikaw lang talaga ang nakikita. Kahit saan pa ako pumunta, kahit gaano karami ang makakasalamuha ko, ikaw at ikaw lang ang iisang laman ng isip at puso ko.
+
+Salamat sa pagiging ikaw, sa pagiging bahagi ng buhay ko, at sa lahat ng saya at pagmamahal na pinupuno mo sa bawat araw ko. Mahal na mahal kita, at pangako, patuloy akong magsusumikap para mas maipakita ko sa’yo araw-araw kung gaano kita kamahal ❤️`);
+}
+
+
+        function receiveGift() {
+        alert("Gift successfully received! 💝\nCheck the special surprises inside!");
+        }
+
+        function openGallery() {
+        document.getElementById('galleryPopup').style.display = 'block';
+        }
+
+        function closeGallery() {
+        document.getElementById('galleryPopup').style.display = 'none';
+        }
+
+        // Zoom for gallery images
+        const galleryImages = document.querySelectorAll('.gallery-grid img');
+        const zoomModal = document.getElementById('zoomModal');
+        const zoomedImage = zoomModal.querySelector('img');
+
+        galleryImages.forEach(img => {
+        img.addEventListener('click', ()=>{
+        zoomedImage.src = img.src;
+        zoomModal.style.display = 'flex';
+        });
+        });
+
+        zoomModal.addEventListener('click', ()=>{
+        zoomModal.style.display = 'none';
+        zoomedImage.src = '';
+        });
+    </script>
+</body>
+</html>
